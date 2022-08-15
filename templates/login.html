@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<header class="lg">
+    <div class="container">
+        <div class="row v-center">
+            <div class="col-lg-6 tablet-lg-top-30">
+                <h2 class="page-title mb-15">
+                    <span class="text-primary">Style Guide</span>
+                    Maker
+                </h2>
+                <h6 class="secondary-font fs-14 fw-bold mb-40">
+                    Login to your account to get started!
+                </h6>
+                <p class="fs-16 mb-40 tablet-lg-top">
+                    Don't have an account yet? Register for a user account to generate and save your style guides! 
+                </p>
+                <a href="/register" class="btn btn-primary pill m-10 ml-0">
+                    <i class="fas fa-user mr-5">
+                    </i>Sign Up</a>
+            </div>
+
+            <div class="col-lg-5 offset-lg-1">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="promo-big promo-icon-bg circle m-y-30 ml-auto mr-auto raised-sm">
+                            <i class="fas fa-user promo-icon text-primary"></i>
+                        </div>
+                        <p class="text-center fs-24 fw-bold mb-30 text-primary">Login</p>
+
+                        <form method="POST" class="validation-inner" id="login-form4" novalidate="novalidate">
+
+                            {{ form.hidden_tag() }}
+                            
+                            {% for field in form
+                            if field.widget.input_type != 'hidden' %}
+                            
+                            <div class="form-group">
+                            
+                                {{ field(class_="form-control pill mb-10", placeholder=field.label.text) }}
+                            
+                            </div>
+                            {% endfor %}
+
+                            <button type="submit" class="btn btn-primary pill d-block w-100 mb-15">
+                                <i class="fas fa-sign-in-alt mr-5"></i>
+                                Login
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+{% endblock %}

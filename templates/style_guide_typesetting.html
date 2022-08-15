@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block styles %} 
+
+<style type="text/css">
+    .primary-typeface-set {
+        font-family: "{{style_guide.primary_typeface}}";
+        color: #c9d0f4;
+    }
+
+    .typeface-weight-set {
+        font-family: "{{style_guide.primary_typeface}}";
+        color: #c9d0f4;
+    }
+
+</style>
+
+{% for variant in variants %}
+    <link rel="stylesheet" href={{variant.url}}>
+{% endfor %}
+
+{% endblock %}
+
+{% block content %}
+<section class="med">
+    <div class="container mt-40">
+        <div class="section-title-area mb-50">
+            <h3 class="section-title">Style Guide<span class="text-primary"> Typesetting</span></h3>
+            <h5 class="section-sub-title">Now we'll set the typeface styles for all the headings and text.</h5>
+        </div>
+        <div class="row justify-content-between align-items-start mt-20">
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="primary-typeface-set">
+                        {{ style_guide.primary_typeface }}
+                    </div>
+                    <div style="color: #b1b8d8;">Primary Typeface</div>
+                </div>
+                
+            </div>
+
+            <div class="col-md-6">
+                <div class="row justify-content-between">
+                    {% for variant in variants %}
+                    <div class="col-6 col-md-3">
+                        <span style="font-weight:{{variant.weight}}; font-style:{{variant.style}}" class="typeface-weight-set">Aa</span>
+                    </div>
+                    {% endfor %}
+                    
+                </div>
+            </div><!-- / column -->
+        </div><!-- / row -->
+            
+    </div>
+</section>
+
+
+
+    <div class="container mt-20">
+        <div class="promo-box">
+            <div class="row">
+                <form method="POST" class="">
+                    {{ form.hidden_tag() }}
+    
+                    <div class="row align-items-center justify-content-between ">
+                        <div class="col-md-5 pl-60">
+                            <h6>{{ style_ref.name }} <span class="text-primary text-uppercase">{{ style_ref.id }}</span></h6>
+                            <p class="">
+                                {{ style_ref.description }}
+                            </p>
+                        </div>
+    
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                {{ form.variant (class_="custom-select mb-20") }}
+
+                                {{ form.text_size (class_="form-control mb-20", placeholder="Font Size") }}
+
+                                {{ form.text_transform (class_="custom-select") }}
+                                
+                            </div>
+                            <div class="row mt-30 justify-content-end">
+                                <div class="col text-end">
+                                    <button type="submit" class="btn btn-primary-gradient pill btn-lg w-100">Submit</button>
+                                </div>
+                            </div>
+                        </div><!-- / column -->
+                    </div><!-- / row -->
+                </form><!-- / form -->
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Soft UI - Neumorphism Style UI Kit">
+    <meta name="author" content="kingstudio.ro">
+    <!-- Favicon -->
+    <link rel="icon" href="/static/images/favicon.png">
+    <!-- Site Title -->
+    <title>Style Guide Generator</title>
+    <!-- Bootstrap 4 core CSS -->
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/static/css/animate.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+
+
+    <!-- Fonts -->
+    {% block styles %} {% endblock %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap">
+    <link rel="stylesheet" href="/static/css/fontawesome-all.min.css" type="text/css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <div id="preloader">
+        <div class="preloader">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light custom-menu menu-pills bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="/">Style Guide Maker</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-toggle-pills">
+                <ul class="navbar-nav ml-auto">
+                    {% if session['username'] %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-home mr-5"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fas fa-user mr-5"></i>
+                            <span>Account</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">
+                            <i class="fas fa-sign-out-alt mr-5"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">
+                            <span>Login</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">
+                            <span>Sign Up</span>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-4">
+                {% for msg in get_flashed_messages() %}
+                <div class="alert alert-primary fade show">
+                    {{ msg }}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-8"></div>
+        </div>
+
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    <div class="container">
+    </div>
+
+
+
+
+
+    <!-- core JavaScript -->
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    <!-- preloader -->
+    <script src="/static/js/preloader.js"></script>
+
+    <!-- smooth scroll -->
+    <script src="/static/js/jquery.easing.min.js"></script>
+    <script src="/static/js/smooth-scroll.js"></script>
+
+    <!-- hide nav -->
+    <script src="/static/js/hide-nav.js"></script>
+
+    <!-- tooltips -->
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+</body>
+
+</html>

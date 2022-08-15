@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+
+<style type="text/css">
+    .primary-typeface-set {
+        font-family: "{{style_guide.primary_typeface}}";
+    }
+
+    .typeface-weight-set {
+        font-family: "{{style_guide.primary_typeface}}";
+    }
+
+    .sg-a {
+        text-decoration: underline;
+        color: {{style_guide.accent_1_color}};
+    }
+
+    {% for typesetting in typesettings %}
+    
+    .sg-{{typesetting.style_ref}} {
+        font-family: "{{typesetting.typeface}}";
+        font-size: {{typesetting.text_size}}px;
+        font-weight: {{typesetting.font_weight}};
+        text-transform: {{typesetting.text_transform}}
+    }
+
+    {% endfor %}
+
+
+</style>
+
+
+{% for variant in variants %}
+<link rel="stylesheet" href={{variant.url}}>
+{% endfor %}
+
+{% endblock %}
+
+
+
+{% block content %}
+<!-- Style Guide Info Section -->
+<section class="lg">
+    <div class="container">
+        <div class="section-title-area text-end">
+            <h2 class="section-title" >{{ style_guide.title }}</h3>
+            <p class="lead"><span class="fw-bold">Designed by: </span>{{ style_guide.user.full_name }}</p>
+            <p class="lead"><span class="fw-bold">Last edited: </span>{{ style_guide.timestamp.strftime("%B %d, %Y") }}</p>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <div class="container">
+        <div class="text-end mb-20">
+            <form method="POST" action="/style-guide/{{style_guide.id}}/delete">
+                {{ form.hidden_tag() }}
+                <button class="delete-btn btn btn-sm pill btn-dark mr-5 mb-5">
+                    <i class="fas fa-trash-alt mr-5 fs-14">
+                    </i> <span>Delete Style Guide</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Color Scheme Section -->
+        <div class="row v-top colors-section">
+            <div class="col-lg-3 pt-50">
+                <h6>Colors</h6>
+            </div>
+            <div class="col-lg-9 bg-white pt-30 pb-50">
+
+                <div class="color-scheme-row row p-x-20">
+
+                    <div class="col-6 col-md-3 bg-white">
+                        <div class="p-20 bg-white">
+                            <div class="color-scheme-block" style="background-color:{{style_guide.primary_dark_color}}">
+                            </div>
+                            <div class="p-y-5">
+                                <b>Primary Dark</b><span class="d-block fs-12">{{ style_guide.primary_dark_color }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 bg-white">
+                        <div class="p-20 bg-white">
+                            <div class="color-scheme-block" style="background-color:{{style_guide.primary_light_color}}">
+                            </div>
+                            <div class="p-y-5">
+                                <b>Primary Light</b><span class="d-block fs-12">{{ style_guide.primary_light_color }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 bg-white">
+                        <div class="p-20 bg-white">
+                            <div class="color-scheme-block" style="background-color:{{style_guide.accent_1_color}}">
+                            </div>
+                            <div class="p-y-5">
+                                <b>Accent 1</b><span class="d-block fs-12">{{ style_guide.accent_1_color }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3 bg-white">
+                        <div class="p-20 bg-white">
+                            <div class="color-scheme-block" style="background-color:{{style_guide.accent_2_color}}">
+                            </div>
+                            <div class="p-y-5">
+                                <b>Accent 2</b><span class="d-block fs-12">{{ style_guide.accent_2_color }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- End of Color Scheme Section -->
+
+        <!-- Typeface Section -->
+        <div class="row v-top typeface-section">
+            <div class="col-lg-3 pt-60">
+                <h6>Primary Typeface</h6>
+            </div>
+            <div class="col-lg-9 bg-white pt-30 pb-50">
+                <div class="row p-x-40">
+                    <span class="primary-typeface-set">{{ style_guide.primary_typeface }}</span>
+                </div>
+                <div class="row p-x-40">
+                    {% for variant in variants %}
+                    <div class="col-6 col-md-3">
+                        <span style="font-weight:{{variant.weight}}; font-style:{{variant.style}}" class="typeface-weight-set">Aa</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- End of Typeface Section -->
+
+
+        <!-- Typesetting Section -->
+        <div class="row v-top typesetting-section">
+            <div class="col-lg-3 pt-80">
+                <h6>Typesetting</h6>
+            </div>
+            <div class="col-lg-9 bg-white pt-70 pb-50">
+
+                <!-- Typesetting Section -->
+                {% for typesetting in typesettings %}
+                <div class="row p-x-40 align-items-end ts-h1-row mb-40">
+                    <div class="col-8">
+                        <div class="sg-{{typesetting.style_ref}} m-y-0">{{ typesetting.style_ref_details.name }}</div>
+                        <div class="fw-light"><b class="text-uppercase">{{ typesetting.style_ref }}</b> {{ typesetting.text_size }}px, {{ typesetting.font_style }}-{{ typesetting.font_weight}}</div>
+                    </div>
+                    <div class="col-4 color-dots">
+                        <div class="row">
+                            <div class="color-dot" style="background-color: {{style_guide.primary_dark_color}};"></div>
+                            <div class="color-dot" style="background-color: {{style_guide.primary_light_color}};"></div>
+                            <div class="color-dot" style="background-color: {{style_guide.accent_1_color}};"></div>
+                            <div class="color-dot" style="background-color: {{style_guide.accent_2_color}};"></div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="fw-light ts-uses">{{ typesetting.style_ref_details.uses }}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <!-- End of Typesetting Section -->
+
+        <!-- Buttons Section -->
+        <div class="row v-top buttons-section">
+            <div class="col-lg-3 pt-90 pb-50">
+                <h6>Buttons</h6>
+            </div>
+            <div class="col-lg-9 bg-white p-y-60">
+                <div class="row p-x-40">
+                    <!-- Primary Button Main -->
+                    <div class="col-5 p-20 bg-white">
+                        <div class="sg-dark-btn text-center p-x-10 mb-20" style="background-color:{{style_guide.accent_1_color}}">
+                            <span class="sg-h6">Primary button</span>
+                        </div>
+
+                        <!-- Primary Button Pressed State -->
+                        <div class="sg-dark-btn sg-btn-pressed text-center p-x-10 mb-20" style="background-color:{{style_guide.accent_1_color}}">
+                            <span class="sg-h6">Pressed State</span>
+                        </div>
+
+                        <!-- Primary Button Deactivated State -->
+                        <div class="sg-dark-btn sg-btn-deact text-center p-x-10 mb-20" style="background-color:{{style_guide.accent_1_color}}">
+                            <span class="sg-h6">Deactivated State</span>
+                        </div>
+                    </div>
+
+                    <!-- Secondary Button -->
+                    <div class="col-4 p-20 bg-white">
+                        <!-- Secondary Button Main State -->
+                        <div class="sg-dark-btn text-center p-x-10 mb-20" style="background-color:{{style_guide.accent_2_color}}">
+                            <span class="sg-h6">Secondary button</span>
+                        </div>
+
+                        <!-- Secondary Button Pressed State -->
+                        <div class="sg-dark-btn sg-btn-pressed text-center p-x-10 mb-20" style="background-color:{{style_guide.accent_2_color}}">
+                            <span class="sg-h6">Pressed State</span>
+                        </div>
+                        
+                        <!-- Secondary Button Deactivated State -->
+                        <div class="sg-dark-btn sg-btn-deact text-center p-x-10 mb-20" style="background-color:{{style_guide.accent_2_color}}">
+                            <span class="sg-h6">Deactivated State</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Buttons Section -->
+
+        <!-- Splash Sample Section -->
+        <div class="row v-top sample-splash-section">
+            <div class="col-lg-3 pt-60">
+                <h6>Section Sample:</h6>
+                <p class="lead">Splash</p>
+            </div>
+            <div class="col-lg-9 bg-white pt-30 pb-50">
+                <div class="col p-20 bg-white">
+                    <div class="promo-box section-sample-splash p-x-40 m-x-40">
+                       <h1 class="sg-h1">This Is A Display Header</h1>
+                       <h5 class="sg-h5">This is Headline copy. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores doloremque facere quod, incidunt rerum eveniet culpa quaerat dignissimos consequatur voluptates aperiam totam eaque? Corrupti magnam ex accusamus, officiis eligendi dicta.</h5> 
+                        <div class="sg-h6 sg-dark-btn text-center p-x-10 mt-30 mb-20" style="background-color:{{style_guide.accent_2_color}}">
+                            <span class="sg-h6">Primary button</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Splash Sample Section -->
+
+        <!-- Body Sample Section -->
+        <div class="row v-top sample-body-section">
+            <div class="col-lg-3 pt-60">
+                <h6>Section Sample:</h6>
+                <p class="lead">Body</p>
+            </div>
+            <div class="col-lg-9 bg-white pt-30 pb-50">
+                <div class="col p-20 bg-white">
+                    <div class="promo-box section-sample-body p-x-40 m-x-40">
+                        <h4 class="sg-h4">This Is A Subeader</h4>
+                        <p class="sg-p">This is Body copy. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores doloremque facere
+                            quod, incidunt rerum eveniet culpa quaerat dignissimos consequatur voluptates aperiam totam eaque? Corrupti
+                            magnam ex accusamus, officiis eligendi dicta. Sit totam ipsa laboriosam praesentium alias voluptas harum aliquam, illo, facilis necessitatibus, numquam dolorum quo. <span class="sg-a" style="color: {{style_guide.accent_1_color}};">This is an Inline Link.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Body Sample Section -->
+
+    </div>
+</section>
+
+{% endblock %}

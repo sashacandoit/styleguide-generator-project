@@ -1,0 +1,4 @@
+import requests
+
+
+GOOGLE_API_KEY = "AIzaSyD3VmBcNb6qLT6a5SiR3I9iIIdUK7YV600"
