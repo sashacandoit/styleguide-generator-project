@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, redirect, session
 from forms import AddUserForm, LoginForm, DeleteForm, TypesettingForm, NewStyleGuideForm, ColorSchemeForm, DeleteStyleGuideForm
 from models import db, connect_db, User, get_all_fonts, StyleGuide, TypesettingStyle, TypefaceVariant, get_typeface_variants, StyleRef
 from sqlalchemy.exc import IntegrityError
+import os
 
 
 app = Flask(__name__)
@@ -347,7 +348,7 @@ def view_style_guide(style_guide_id):
 
 @app.route('/style-guide/<style_guide_id>/delete', methods=["GET", "POST"])
 def delete_style_guide(style_guide_id):
-    """Delete current style guide in view"""
+    """Delete current user's style guide in view"""
 
     style_guide = StyleGuide.query.get_or_404(style_guide_id)
     print("**************************")
