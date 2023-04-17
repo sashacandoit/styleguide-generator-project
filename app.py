@@ -7,15 +7,15 @@ import os
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    'DATABASE_URL', 'postgresql://capstone_1_db')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///capstone_1_db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+#     'DATABASE_URL', 'postgresql://capstone_1_db')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///capstone_1_db'
 
 # Render Database - External
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://styleguide_db_user:9Xe0iYXC8xRph2kf7MDwspfVmkGwezNY@dpg-cgruquhmbg5e4kirvt0g-a.ohio-postgres.render.com/styleguide_db'
 
 # Render Database - Internal
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://styleguide_db_user:9Xe0iYXC8xRph2kf7MDwspfVmkGwezNY@dpg-cgruquhmbg5e4kirvt0g-a/styleguide_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://styleguide_db_user:9Xe0iYXC8xRph2kf7MDwspfVmkGwezNY@dpg-cgruquhmbg5e4kirvt0g-a/styleguide_db'
 
 # 'postgresql://styleguide_db_user:9Xe0iYXC8xRph2kf7MDwspfVmkGwezNY@dpg-cgruquhmbg5e4kirvt0g-a/styleguide_db'
 
